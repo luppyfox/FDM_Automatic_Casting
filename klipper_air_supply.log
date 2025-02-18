@@ -1,0 +1,98 @@
+DEBUG - Sent: HELP
+DEBUG - Full Response:
+List of all available commands
+CLOSE                Close valve
+GET_PRESSURE         Get current pressure
+HELP                 Display available commands and their descriptions
+OPEN                 Open valve
+PULSE_MODE           Set airsupply to pulse mode
+SET                  Set the variable with given key
+SIMPLE_MODE          Set airsupply to simple mode
+VERSION
+OK
+DEBUG - Sent: HELP
+DEBUG - Sent: HELP
+DEBUG - Sent: PULSE_MODE
+DEBUG - Sent: SIMPLE_MODE
+DEBUG - Sent: PULSE_MODE
+ERROR - Error reading serial: device reports readiness to read but returned no data (device disconnected or multiple access on port?)
+DEBUG - Full Response:
+
+DEBUG - Sent: HELP
+DEBUG - Full Response:
+List of all available commands
+CLOSE                Close valve
+GET_PRESSURE         Get current pressure
+HELP                 Display available commands and their descriptions
+OPEN                 Open valve
+PULSE_MODE           Set airsupply to pulse mode
+SET                  Set the variable with given key
+SIMPLE_MODE          Set airsupply to simple mode
+VERSION
+OK
+DEBUG - {'REF_PRES': '10'}
+ERROR - Invalid set command format
+DEBUG - {'REF_PRES': '10'}
+ERROR - Error sending command: can only concatenate tuple (not "str") to tuple
+DEBUG - {'REF_PRES': '10'}
+ERROR - Error reading serial: device reports readiness to read but returned no data (device disconnected or multiple access on port?)
+DEBUG - Full Response:
+Error: Command 'C' not recognized
+Use 'HELP' to get a list of all available commands.
+DEBUG - {'REF_PRES': '10'}
+ERROR - Error reading serial: device reports readiness to read but returned no data (device disconnected or multiple access on port?)
+DEBUG - Full Response:
+
+DEBUG - {'REF_PRES': '10'}
+DEBUG - ('SET REF_PRES=', '10')
+ERROR - Error sending command: can only concatenate tuple (not "str") to tuple
+DEBUG - {'REF_PRES': '10'}
+DEBUG - SET REF_PRES=10
+DEBUG - Sent: SET REF_PRES=10
+DEBUG - Full Response:
+OK
+DEBUG - {'REF_PRES': '20'}
+DEBUG - SET REF_PRES=20
+DEBUG - Sent: SET REF_PRES=20
+DEBUG - {'REF_PRES': '0'}
+DEBUG - SET REF_PRES=0
+DEBUG - Sent: SET REF_PRES=0
+DEBUG - {'REF_PRES': '30'}
+DEBUG - SET REF_PRES=30
+DEBUG - Sent: SET REF_PRES=30
+DEBUG - {'REF_PRES': '0'}
+DEBUG - SET REF_PRES=0
+DEBUG - Sent: SET REF_PRES=0
+DEBUG - {'REF_PRES': '30'}
+DEBUG - SET REF_PRES=30
+DEBUG - Sent: SET REF_PRES=30
+DEBUG - {'REF_PRES': '10'}
+DEBUG - SET REF_PRES=10
+DEBUG - Sent: SET REF_PRES=10
+DEBUG - {'REF_PRES': '0'}
+DEBUG - SET REF_PRES=0
+DEBUG - Sent: SET REF_PRES=0
+DEBUG - {'REF_PRES': '10'}
+DEBUG - SET REF_PRES=10
+DEBUG - Sent: SET REF_PRES=10
+DEBUG - Sent: OPEN
+DEBUG - {'REF_PRES': '0'}
+DEBUG - SET REF_PRES=0
+DEBUG - Sent: SET REF_PRES=0
+DEBUG - Sent: CLOSE
+DEBUG - Sent: SIMPLE_MODE
+DEBUG - Sent: OPEN
+DEBUG - {'REF_PRES': '10'}
+DEBUG - SET REF_PRES=10
+DEBUG - Sent: SET REF_PRES=10
+DEBUG - Sent: CLOSE
+DEBUG - {'REF_PRES': '0'}
+DEBUG - SET REF_PRES=0
+DEBUG - Sent: SET REF_PRES=0
+DEBUG - Sent: PULSE_MODE
+DEBUG - Sent: OPEN
+DEBUG - Sent: CLOSE
+DEBUG - {'REF_PRES': '0'}
+DEBUG - SET REF_PRES=0
+DEBUG - Sent: SET REF_PRES=0
+DEBUG - Sent: HELP

@@ -17,16 +17,18 @@ class ControlAirSupply:
         """Initialize serial connection and start read thread."""
         self.ser = serial.Serial(port, baudrate, timeout=timeout)
         self.buffer = []
-        self.read_thread = threading.Thread(target=self.read_serial, daemon=True)
+        self.read_thread = threading.Thread(target=self.read_serial) #, args=(self.ser,))
+        self.read_thread.setDaemon = True  # Make it a daemon thread so it exits when the main program exits
         self.read_thread.start()
     
     def read_serial(self):
         """Continuously read data from serial and log it."""
+        line = ""
+        self.buffer.clear()
         while line != "OK":
             try:
                 line = self.ser.readline().decode('utf-8').strip()
                 if line:
-                    logger.debug("Received: " + line)
                     self.buffer.append(line)                        
             except Exception as e:
                 logger.error("Error reading serial: " + str(e))
@@ -46,38 +48,42 @@ class KlipperAirControl:
     def __init__(self, config):
         
         self.air_supply = ControlAirSupply()
-        self.printer = config.get_printer()
-        self.printer.register_command("HELP", self.cmd_help, desc="Show available commands")
-        self.printer.register_command("OPEN", self.cmd_open, desc="Open valve")
-        self.printer.register_command("CLOSE", self.cmd_close, desc="Close valve")
-        self.printer.register_command("GET_PRESSURE", self.cmd_get_pressure)
-        self.printer.register_command("PULSE_MODE", self.cmd_pulse_mode, desc="Set to pulse mode")
-        self.printer.register_command("SIMPLE_MODE", self.cmd_simple_mode, desc="Set to simple mode")
-        self.printer.register_command("SET", self.cmd_set, desc="Set parameter")
+        self.printer_config = config.get_printer()
+        self.printer = self.printer_config.lookup_object('gcode')
+        self.printer.register_command("HELP_AIR", self._help, desc="Show available commands")
+        self.printer.register_command("OPEN", self._open, desc="Open valve")
+        self.printer.register_command("CLOSE", self._close, desc="Close valve")
+        self.printer.register_command("GET_PRESSURE", self._get_pressure)
+        self.printer.register_command("PULSE_MODE", self._pulse_mode, desc="Set to pulse mode")
+        self.printer.register_command("SIMPLE_MODE", self._simple_mode, desc="Set to simple mode")
+        self.printer.register_command("SET", self._set, desc="Set parameter")
 
-    def cmd_help(self, gcmd):
+    def _help(self, gcmd):
         self.air_supply.send_command("HELP")
     
-    def cmd_open(self, gcmd):
+    def _open(self, gcmd):
         self.air_supply.send_command("OPEN")
     
-    def cmd_close(self, gcmd):
+    def _close(self, gcmd):
         self.air_supply.send_command("CLOSE")
     
-    def cmd_get_pressure(self, gcmd):
+    def _get_pressure(self, gcmd):
         self.air_supply.send_command("GET_PRESSURE")
     
-    def cmd_pulse_mode(self, gcmd):
+    def _pulse_mode(self, gcmd):
         self.air_supply.send_command("PULSE_MODE")
     
-    def cmd_simple_mode(self, gcmd):
+    def _simple_mode(self, gcmd):
         self.air_supply.send_command("SIMPLE_MODE")
     
-    def cmd_set(self, gcmd):
+    def _set(self, gcmd):
         param = gcmd.get_command_parameters()
-        if "=" in param:
-            key, value = param.split("=")
-            formatted_command = f"SET {key.upper()}={value}" #SET ref_pres=10
+        logger.debug(param)
+        if isinstance(param, dict):
+            key, value = list(param.items())[0]
+            logger.debug(key, " ", value)
+            formatted_command = "SET " + key.upper() + "=" + value
+            logger.debug(formatted_command)
             self.air_supply.send_command(formatted_command)
         else:
             logger.error("Invalid set command format")
